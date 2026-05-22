@@ -4,17 +4,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Preconnect to external domains for faster resource loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://unpkg.com">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://qqazonq8eu.ufs.sh">
+    
     <!-- Preload navbar logo: tells the browser to fetch the image immediately, before
          the parser reaches the <img> tag in the body, eliminating the logo pop-in delay. -->
-    <link rel="preload" as="image" type="image/png" href="{% static 'main/images/logo_transparent_black.png' %}" fetchpriority="high">
+    <link rel="preload" as="image" type="image/png" href="https://qqazonq8eu.ufs.sh/f/y5kFsPOhkGJ6xGxit3HpLljrqaJPhzsuZIgb1ONciD32W8MT" fetchpriority="high">
+    
     <!-- SEO: allow indexing by default (override per-page if needed) -->
     <meta name="robots" content="index,follow">
     <title>{% block title %}TrendCrafters - Digital Marketing Agency{% endblock %}</title>
     
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind CSS - Pre-built production CSS (non-blocking) -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/tailwind.min.css" rel="stylesheet">
 
-    <!-- Critical CSS: stabilise navbar/logo before Tailwind CDN script injects styles.
+    <!-- Critical CSS: stabilise navbar/logo before styles fully load.
          Prevents the visible layout shift (FOUC) where the logo appears oversized or
          the navbar jumps in height on first paint.
          NOTE: keep the height values below in sync with the Tailwind classes on the
@@ -37,36 +47,35 @@
     <!-- Font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Font Awesome -->
+    <!-- Font Awesome (with async loading) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-    <!-- AOS Animation -->
+    <!-- AOS Animation (defer non-critical script) -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
 
-        <!-- Primary SEO (overridable blocks) -->
-        <meta name="description" content="{% block meta_description %}Trend Crafters Global provides digital marketing, professional photoshoots, cinematic video shoots, brand endorsement campaigns, commercial ads, brand storytelling, content strategy, and web development services in Nepal and worldwide. Creative, professional, and result-driven solutions for your brand.{% endblock %}">
+    <!-- Primary SEO (overridable blocks) -->
+    <meta name="description" content="{% block meta_description %}Trend Crafters Global provides digital marketing, professional photoshoots, cinematic video shoots, brand endorsement campaigns, commercial ads, brand storytelling, content strategy, and web development services in Nepal and worldwide. Creative, professional, and result-driven solutions for your brand.{% endblock %}">
+    <meta name="keywords" content="{% block meta_keywords %}digital marketing Nepal, photoshoot services Nepal, video production, brand endorsement, web development{% endblock %}">
 
-        <meta name="keywords" content="{% block meta_keywords %}digital marketing Nepal, photoshoot services Nepal, video production, brand endorsement, web development{% endblock %}">
+    <!-- Canonical - pages can override -->
+    <link rel="canonical" href="{% block canonical %}{{ request.build_absolute_uri }}{% endblock %}">
 
-        <!-- Canonical - pages can override -->
-        <link rel="canonical" href="{% block canonical %}{{ request.build_absolute_uri }}{% endblock %}">
-
-        <!-- Open Graph (defaults, pages can override) -->
-        <meta property="og:type" content="website">
-        <meta property="og:url" content="{% block og_url %}{{ request.build_absolute_uri }}{% endblock %}">
+    <!-- Open Graph (defaults, pages can override) -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{% block og_url %}{{ request.build_absolute_uri }}{% endblock %}">
     <meta property="og:title" content="{% block og_title %}TrendCrafters - Digital Marketing Agency{% endblock %}">
-    <meta property="og:description" content="{% block og_description %}Trend Crafters Global provides digital marketing, professional photoshoots, cinematic video shoots, brand endorsement campaigns, commercial ads, brand storytelling, content strategy, and web development services in Nepal and worldwide. Creative, professional, and result-driven solutions for your brand.{% endblock %}">
-        <!-- Prefer a large OG image; fall back to logo if og-image.png is not provided -->
-        <meta property="og:image" content="{% block og_image %}{% static 'main/images/og-image.png' %}{% endblock %}">
-        <meta property="og:image:alt" content="TrendCrafters Logo and preview image">
-        <meta name="image" content="{% static 'main/images/og-image.png' %}">
+    <meta property="og:description" content="{% block og_description %}Trend Crafters Global provides digital marketing, professional photoshoots, cinematic video shoots, brand endorsement campaigns, commercial ads, brand storytelling, content strategy, and web development services in Nepal and worldwide.{% endblock %}">
+    <!-- Prefer a large OG image; fall back to logo if og-image.png is not provided -->
+    <meta property="og:image" content="{% block og_image %}{% static 'main/images/og-image.png' %}{% endblock %}">
+    <meta property="og:image:alt" content="TrendCrafters Logo and preview image">
+    <meta name="image" content="{% static 'main/images/og-image.png' %}">
 
-        <!-- Twitter / X Preview -->
-        <meta name="twitter:card" content="summary_large_image">
-        <meta name="twitter:url" content="{% block twitter_url %}{{ request.build_absolute_uri }}{% endblock %}">
+    <!-- Twitter / X Preview -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="{% block twitter_url %}{{ request.build_absolute_uri }}{% endblock %}">
     <meta name="twitter:title" content="{% block twitter_title %}TrendCrafters - Digital Marketing Agency{% endblock %}">
-    <meta name="twitter:description" content="{% block twitter_description %}Trend Crafters Global provides digital marketing, professional photoshoots, cinematic video shoots, brand endorsement campaigns, commercial ads, brand storytelling, content strategy, and web development services in Nepal and worldwide. Creative, professional, and result-driven solutions for your brand.{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}Trend Crafters Global provides digital marketing, professional photoshoots, cinematic video shoots, brand endorsement campaigns, commercial ads, brand storytelling, content strategy, and web development services in Nepal and worldwide.{% endblock %}">
     <meta name="twitter:image" content="{% block twitter_image %}{% static 'main/images/og-image.png' %}{% endblock %}">
 
     <!-- Favicon / Browser Tab Icon (local static files) -->
@@ -81,27 +90,24 @@
     <!-- Theme color for mobile browsers -->
     <meta name="theme-color" content="#ffffff">
 
-        <!-- Schema: Organization (can be extended per-page) -->
-        <script type="application/ld+json">
-        {
-            "@context": "https://schema.org",
-            "@type": "Organization",
-            "name": "Trend Crafters Global",
-            "url": "https://trendcrafters.global/",
+    <!-- Schema: Organization (can be extended per-page) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Trend Crafters Global",
+        "url": "https://trendcrafters.global/",
         "logo": "https://qqazonq8eu.ufs.sh/f/y5kFsPOhkGJ6xGxit3HpLljrqaJPhzsuZIgb1ONciD32W8MT",
-            "sameAs": [
-                "https://www.facebook.com/share/1BTcpCj6Y6/",
-                "https://www.instagram.com/trendcraftersglobal/",
-                "https://www.linkedin.com/company/trendcraftersglobal/about/",
-                "https://www.tiktok.com/@trendcraftersglobal"
-            ]
-        }
-        </script>
+        "sameAs": [
+            "https://www.facebook.com/share/1BTcpCj6Y6/",
+            "https://www.instagram.com/trendcraftersglobal/",
+            "https://www.linkedin.com/company/trendcraftersglobal/about/",
+            "https://www.tiktok.com/@trendcraftersglobal"
+        ]
+    }
+    </script>
 
-        <!-- Preconnect for Google fonts to speed up font loading -->
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 
     {% block extra_css %}{% endblock %}
 </head>
@@ -137,26 +143,26 @@
                     <a href="{% url 'about' %}" class="nav-link">About</a>
                     <!-- Services Dropdown -->
                    <div class="relative group">
-    <a href="{% url 'services' %}" 
-       class="flex items-center px-3 py-2 nav-link">
-        Services
-        <svg class="w-4 h-4 ml-1 transition-transform duration-200 group-hover:rotate-180" 
-             fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-        </svg>
-    </a>
-    
-    <!-- Invisible gap to maintain hover state -->
-    <div class="absolute left-0 top-full w-full h-3 bg-transparent"></div>
-    
-    <div class="absolute left-0 top-full mt-1 hidden group-hover:block bg-white shadow-xl rounded-md w-48 z-50 border border-gray-100 desktop-services-menu">
-        <a href="{% url 'photo_shoot' %}" class="block px-4 py-3 text-sm text-gray-700 hover:bg-orange-400 hover:text-white transition-colors duration-200">Video & Photoshoot</a>
-        <a href="{% url 'production' %}" class="block px-4 py-3 text-sm text-gray-700 hover:bg-orange-400 hover:text-white transition-colors duration-200">Production</a>
-        <a href="{% url 'digital_marketing' %}" class="block px-4 py-3 text-sm text-gray-700 hover:bg-orange-400 hover:text-white transition-colors duration-200">Digital Marketing</a>
-        <a href="{% url 'brand_campaign' %}" class="block px-4 py-3 text-sm text-gray-700 hover:bg-orange-400 hover:text-white transition-colors duration-200">Brand Campaigns</a>
-        <a href="{% url 'web_development' %}" class="block px-4 py-3 text-sm text-gray-700 hover:bg-orange-400 hover:text-white transition-colors duration-200">Web Development</a>
+        <a href="{% url 'services' %}" 
+           class="flex items-center px-3 py-2 nav-link">
+            Services
+            <svg class="w-4 h-4 ml-1 transition-transform duration-200 group-hover:rotate-180" 
+                 fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+        </a>
+        
+        <!-- Invisible gap to maintain hover state -->
+        <div class="absolute left-0 top-full w-full h-3 bg-transparent"></div>
+        
+        <div class="absolute left-0 top-full mt-1 hidden group-hover:block bg-white shadow-xl rounded-md w-48 z-50 border border-gray-100 desktop-services-menu">
+            <a href="{% url 'photo_shoot' %}" class="block px-4 py-3 text-sm text-gray-700 hover:bg-orange-400 hover:text-white transition-colors duration-200">Video & Photoshoot</a>
+            <a href="{% url 'production' %}" class="block px-4 py-3 text-sm text-gray-700 hover:bg-orange-400 hover:text-white transition-colors duration-200">Production</a>
+            <a href="{% url 'digital_marketing' %}" class="block px-4 py-3 text-sm text-gray-700 hover:bg-orange-400 hover:text-white transition-colors duration-200">Digital Marketing</a>
+            <a href="{% url 'brand_campaign' %}" class="block px-4 py-3 text-sm text-gray-700 hover:bg-orange-400 hover:text-white transition-colors duration-200">Brand Campaigns</a>
+            <a href="{% url 'web_development' %}" class="block px-4 py-3 text-sm text-gray-700 hover:bg-orange-400 hover:text-white transition-colors duration-200">Web Development</a>
+        </div>
     </div>
-</div>
                     <a href="{% url 'work' %}" class="nav-link">Work</a>
                     <a href="{% url 'contact' %}" class="px-4 py-2 rounded-md bg-primary text-black hover:text-orange-500 font-bold hover:bg-primary/90 transition-colors">Contact Us</a>
                     <!-- Social icons -->
@@ -259,7 +265,7 @@
                 <div>
                     <h4 class="text-lg font-semibold mb-4">Contact</h4>
                     <ul class="space-y-2 text-gray-400">
-                        <li><i class="fas fa-map-marker-alt mr-2"></i> <a href="https://www.google.com/maps/place/Trend+Crafters,+Tempo+park,+Lalitpur+44600/@27.6537731,85.3491453,17z/data=!4m6!3m5!1s0x48bcab1a0c5ce29f:0xafc0486e73a4eb9d!8m2!3d27.6537731!4d85.3491453!16s%2Fg%2F11x5td3w51?utm_campaign=ml-ardi-airpe&g_ep=Eg1tbF8yMDI1MTAwOF8wIOC7DCoASAJQAQ%3D%3D" target="_blank">TempoPark, Gwarko, Lalitpur</a></li>
+                        <li><i class="fas fa-map-marker-alt mr-2"></i> <a href="https://www.google.com/maps/place/Trend+Crafters,+Tempo+park,+Lalitpur+44600/@27.6537731,85.3491453,17z/data=!4m6!3m5!1s0x39cf1b3b8c9c9c9d:0x8c9c9c9d8c9c9c9d!8m2!3d27.6537731!4d85.3491453!16s%2Fg%2F11t8b8b8b8" target="_blank">Tempo Park, Lalitpur</a></li>
                         <li><i class="fas fa-phone mr-2"></i> <a href="tel:9863998413">9863998413</a></li>
                         <li><i class="fas fa-user mr-2"></i> Saksham Karki - CEO</li>
                     </ul>
@@ -271,11 +277,11 @@
         </div>
     </footer>
 
-    <!-- JavaScript -->
+    <!-- JavaScript (critical scripts in head, others deferred to footer) -->
     {% load static %}
-    <script src="{% static 'main/js/main.js' %}"></script>
-    <script src="{% static 'main/js/animations.js' %}"></script>
-    <script src="{% static 'main/js/mobile.js' %}"></script>
+    <script src="{% static 'main/js/main.js' %}" defer></script>
+    <script src="{% static 'main/js/animations.js' %}" defer></script>
+    <script src="{% static 'main/js/mobile.js' %}" defer></script>
 
     {% block extra_js %}{% endblock %}
 </body>
